@@ -1,10 +1,16 @@
 'use strict';
 
+/**
+ * Simple REST API for Posting and Fetching Images stored in an sqlite3
+ * database.
+ * @package sqlite_upload/index
+ * @author Cooper Filby
+ */
+
 var Promise = require('bluebird');
 var express = require('express');
 var multer = require('multer');
 var sqlite3 = require('sqlite3');
-
 
 var app = express();
 var db = Promise.promisifyAll(new sqlite3.Database('files.sqlite3'));
@@ -67,7 +73,7 @@ db.serializeAsync()
     });
 
     app.get('/files/:fileId', function(req, res) {
-      db.getAsync('SELECT file_id as fileAd, type, content FROM file \
+      db.getAsync('SELECT file_id as fileId, type, content FROM file \
 			 WHERE file_id = ?', [req.params.fileId])
         .then(function(result) {
           res.set('Content-Type', result.type)

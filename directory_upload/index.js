@@ -1,5 +1,12 @@
 'use strict';
 
+/**
+ * Simple REST API for Posting and Fetching Images with metadata stored
+ * in an sqlite3 database and the files located on the filesystem.
+ * @package directory_upload/index
+ * @author Cooper Filby
+ */
+
 var path = require('path');
 var uploadPath = path.join(__dirname, './files');
 
@@ -48,14 +55,12 @@ db.serializeAsync()
     });
 
     app.post('/files', upload.single('file'), function(req, res) {
-      console.log(req.file)
       if (!req.file) {
         res.status = 400;
         return res.json({
           message: 'A file is required.'
         });
       }
-      console.log(uploadPath);
 
       db.runAsync('INSERT INTO file (filename, filehash, type, path) VALUES (?, ?, ?, ?)', [req.file.originalname, req.file.filename, req.file.mimetype, uploadPath])
         .then(function() {
