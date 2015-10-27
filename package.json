@@ -11,7 +11,6 @@
   "dependencies": {
     "bluebird": "^3.0.0",
     "express": "^4.13.3",
-    "humps": "^1.0.0",
     "multer": "^1.1.0",
     "sqlite3": "^3.1.0"
   }
