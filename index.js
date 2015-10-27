@@ -9,7 +9,10 @@ var sqlite3 = require('sqlite3');
 var app = express();
 var db = Promise.promisifyAll(new sqlite3.Database('files.sqlite3'));
 var upload = multer({
-  storage: multer.memoryStorage()
+  storage: multer.memoryStorage(),
+	limits: {
+		fileSize: 2 * 1024 * 1024
+	}
 });
 
 db.serializeAsync()
